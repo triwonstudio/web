@@ -20,6 +20,49 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
-    // Form submission is handled natively via HTML form action to FormSubmit.
-    // If you want to add custom JS validation later, you can add it here.
+    // Form submission (AJAX)
+    const form = document.querySelector('.contact-form');
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Sayfa yenilenmesini engeller
+            
+            const btn = form.querySelector('button');
+            const originalText = btn.textContent;
+            btn.textContent = 'Gönderiliyor...';
+            btn.disabled = true;
+
+            const formData = new FormData(form);
+
+            fetch('https://formsubmit.co/ajax/triwon.studio@gmail.com', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                btn.textContent = 'Gönderildi!';
+                btn.style.background = '#10b981'; // Başarılı yeşili
+                btn.style.color = '#fff';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                    btn.disabled = false;
+                    form.reset();
+                }, 3000);
+            })
+            .catch(error => {
+                btn.textContent = 'Hata Oluştu';
+                btn.style.background = '#ef4444'; // Hata kırmızısı
+                btn.style.color = '#fff';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                    btn.disabled = false;
+                }, 3000);
+            });
+        });
+    }
 });
