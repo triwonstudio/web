@@ -15,9 +15,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    const fadeElements = document.querySelectorAll('.fade-in');
+    const fadeElements = document.querySelectorAll('.fade-in, .service-card, .project-card');
     fadeElements.forEach(el => {
         observer.observe(el);
+    });
+
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Close mobile menu when a link is clicked
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
     });
 
     // Form submission (AJAX)
