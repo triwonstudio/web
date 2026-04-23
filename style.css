@@ -456,21 +456,22 @@ h1, h2, h3, h4 {
 .contact-form input,
 .contact-form textarea {
     width: 100%;
-    padding: 1rem 1.5rem;
-    background: var(--glass-bg);
+    padding: 1.2rem 1.5rem;
+    background: rgba(15, 23, 42, 0.5);
     border: 1px solid var(--glass-border);
-    border-radius: 12px;
+    border-radius: 16px;
     color: white;
     font-family: inherit;
     font-size: 1rem;
     outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+    border-color: var(--accent-blue);
+    background: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.1);
 }
 
 .contact-form button {
