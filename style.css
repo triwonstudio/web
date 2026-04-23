@@ -141,19 +141,23 @@ h1, h2, h3, h4 {
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.7rem;
+    gap: 0.8rem;
     text-decoration: none;
     color: white;
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     letter-spacing: -0.02em;
 }
 
 .logo img {
-    height: 45px; /* Increased for brand logo visibility */
+    height: 40px;
     width: auto;
     display: block;
-    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover img {
+    transform: rotate(-5deg) scale(1.1);
 }
 
 .logo-icon {
