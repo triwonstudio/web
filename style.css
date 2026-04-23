@@ -150,9 +150,10 @@ h1, h2, h3, h4 {
 }
 
 .logo img {
-    height: 35px;
+    height: 45px; /* Increased for brand logo visibility */
     width: auto;
     display: block;
+    object-fit: contain;
 }
 
 .logo-icon {
