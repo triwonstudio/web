@@ -150,8 +150,9 @@ h1, h2, h3, h4 {
 }
 
 .logo img {
-    height: 28px;
+    height: 35px;
     width: auto;
+    display: block;
 }
 
 .logo-icon {
@@ -262,12 +263,14 @@ h1, h2, h3, h4 {
 }
 
 .hero-subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
     color: var(--text-secondary);
     margin-bottom: 2.5rem;
-    max-width: 600px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
+    opacity: 0.8;
+    font-weight: 400;
 }
 
 .hero-cta {
