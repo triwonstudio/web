@@ -10,6 +10,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- OGL Library for Aurora Effect -->
+    <script type="module">
+        import { Renderer, Program, Mesh, Triangle } from 'https://cdn.jsdelivr.net/npm/ogl@0.0.32/dist/ogl.mjs';
+        window.OGL = { Renderer, Program, Mesh, Triangle };
+    </script>
 </head>
 <body>
     <!-- Navbar -->
@@ -36,6 +41,7 @@
 
     <!-- Hero Section -->
     <header id="home" class="hero section fade-in">
+        <div id="aurora-container" class="aurora-background"></div>
         <div class="hero-content">
             <h1 class="hero-title"><span class="gradient-text">Müşteri Çeken</span> <br>Sistemler.</h1>
             <p class="hero-subtitle">TRIWON olarak, çoğu web sitesinin müşteri getirmediğini biliyoruz. <br>
