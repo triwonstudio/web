@@ -123,9 +123,16 @@ h1, h2, h3, h4 {
     top: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 0.8rem 0;
     border-bottom: 1px solid var(--glass-border);
 }
 
@@ -251,7 +258,11 @@ h1, h2, h3, h4 {
     justify-content: center;
     position: relative;
     text-align: center;
-    padding-top: 5rem;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
 }
 
 .hero-content {
@@ -262,9 +273,11 @@ h1, h2, h3, h4 {
 }
 
 .hero-title {
-    font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 1.1;
+    font-size: clamp(3.5rem, 10vw, 6.5rem);
+    line-height: 1.05;
     margin-bottom: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
 }
 
 .hero-subtitle {
@@ -299,13 +312,43 @@ h1, h2, h3, h4 {
     animation: pulse 12s infinite alternate ease-in-out;
 }
 
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    z-index: 4;
+}
+
+.scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--accent-blue), transparent);
+    animation: scrollDown 2s infinite ease-in-out;
+}
+
+@keyframes scrollDown {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    50.1% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
 .hero::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 200px;
+    height: 250px;
     background: linear-gradient(to top, var(--bg-color), transparent);
     z-index: 3;
 }
