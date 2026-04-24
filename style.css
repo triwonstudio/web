@@ -571,4 +571,8 @@ footer {
     .section-title {
         font-size: 2rem;
     }
+
+    .logo img.full-logo {
+        height: 80px;
+    }
 }
