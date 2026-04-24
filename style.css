@@ -125,7 +125,7 @@ h1, h2, h3, h4 {
     transform: translateX(-50%);
     width: 90%;
     max-width: 1000px;
-    height: 54px;
+    height: 62px;
     z-index: 1000;
     background: rgba(15, 23, 42, 0.4);
     backdrop-filter: blur(20px);
@@ -138,7 +138,7 @@ h1, h2, h3, h4 {
 
 .navbar.scrolled {
     top: 1rem;
-    height: 50px;
+    height: 56px;
     width: 85%;
     background: rgba(0, 0, 0, 0.85);
     border-color: rgba(255, 255, 255, 0.15);
@@ -165,9 +165,8 @@ h1, h2, h3, h4 {
 }
 
 .logo img.full-logo {
-    height: 42px;
+    height: 36px;
     width: auto;
-    max-width: 200px;
     display: block;
     object-fit: contain;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -191,7 +190,7 @@ h1, h2, h3, h4 {
 .nav-links a {
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 500;
     transition: color 0.3s ease;
 }
