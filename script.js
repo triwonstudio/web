@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Form submission (AJAX)
+    // Form submission (Dual Channel: EmailJS + FormSubmit Fallback)
     const form = document.querySelector('.contact-form');
     if (form) {
         form.addEventListener('submit', (e) => {
@@ -306,37 +306,63 @@ document.addEventListener('DOMContentLoaded', () => {
             const originalText = btn.textContent;
             btn.textContent = 'Gönderiliyor...';
             btn.disabled = true;
-            const formData = new FormData(form);
-            fetch('https://formsubmit.co/ajax/triwon.studio@gmail.com', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                showFormMessage('Mesajınız başarıyla gönderildi!', 'success');
-                btn.textContent = 'Gönderildi!';
-                btn.style.background = '#10b981'; 
-                btn.style.color = '#fff';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.style.background = '';
-                    btn.style.color = '';
-                    btn.disabled = false;
-                    form.reset();
-                }, 3000);
-            })
-            .catch(error => {
-                showFormMessage('Bir hata oluştu. Lütfen tekrar deneyin.', 'error');
-                btn.textContent = 'Hata Oluştu';
-                btn.style.background = '#ef4444'; 
-                btn.style.color = '#fff';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.style.background = '';
-                    btn.style.color = '';
-                    btn.disabled = false;
-                }, 3000);
-            });
+
+            // --- CHANNEL 1: EmailJS (Primary) ---
+            const SERVICE_ID = 'YOUR_SERVICE_ID';
+            const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+            const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+
+            emailjs.init(PUBLIC_KEY);
+
+            emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form)
+                .then(() => {
+                    showFormMessage('Mesajınız başarıyla gönderildi! (EmailJS)', 'success');
+                    handleFormSuccess(btn, originalText, form);
+                })
+                .catch((error) => {
+                    console.error('EmailJS Error, falling back to FormSubmit...', error);
+                    
+                    // --- CHANNEL 2: FormSubmit (Fallback) ---
+                    const formData = new FormData(form);
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        showFormMessage('Mesajınız başarıyla gönderildi! (Yedek Kanal)', 'success');
+                        handleFormSuccess(btn, originalText, form);
+                    })
+                    .catch(fallbackError => {
+                        showFormMessage('Bir hata oluştu. Lütfen tekrar deneyin.', 'error');
+                        btn.textContent = 'Hata Oluştu';
+                        btn.style.background = '#ef4444'; 
+                        btn.style.color = '#fff';
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.style.background = '';
+                            btn.style.color = '';
+                            btn.disabled = false;
+                        }, 3000);
+                    });
+                });
         });
+    }
+
+    function handleFormSuccess(btn, originalText, form) {
+        btn.textContent = 'Gönderildi!';
+        btn.style.background = '#10b981'; 
+        btn.style.color = '#fff';
+        form.reset();
+        
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.disabled = false;
+        }, 3000);
     }
 });
