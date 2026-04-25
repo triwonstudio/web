@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const provider = new firebase.auth.GoogleAuthProvider();
             firebase.auth().signInWithPopup(provider)
-                .then(() => showFormMessage('Giriş Başarılı! ✨', 'success', true))
+                .then(() => showFormMessage('Giriş Başarılı!', 'success', true))
                 .catch((error) => showFormMessage('Hata: ' + error.message, 'error', true));
         });
     }
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         emailBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            showFormMessage('E-posta girişi çok yakında aktif olacak! ✨', 'info', true);
+            showFormMessage('E-posta girişi çok yakında aktif olacak!', 'info', true);
         });
     }
 

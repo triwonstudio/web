@@ -632,7 +632,7 @@ footer {
     margin-top: 1rem;
     font-size: 0.85rem;
     font-weight: 400;
-    color: #94a3b8; /* Modern minimal slate gri */
+    color: #ffffff; /* Okunabilirlik için tam beyaz */
     opacity: 0;
     transform: translateY(-5px);
     transition: all 0.3s ease;
