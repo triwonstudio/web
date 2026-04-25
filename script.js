@@ -108,6 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (authNavBtn) {
         authNavBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            
+            // Toggle active state for auth button too if clicked
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            authNavBtn.classList.add('active');
+
             if (isAuthenticated) {
                 firebase.auth().signOut().then(() => {
                     showFormMessage('Çıkış yapıldı.', 'info');
@@ -117,6 +122,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Dynamic Active State for all Nav Links
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
 
     // --- RE-ADDING CONTENT LOGIC ---
     

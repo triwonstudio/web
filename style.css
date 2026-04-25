@@ -219,19 +219,14 @@ h1, h2, h3, h4 {
     color: var(--text-primary);
 }
 
-.btn-contact {
+.nav-links a.active {
     border: 1.5px solid white !important;
     background: transparent !important;
     color: white !important;
     padding: 0.6rem 1.4rem !important;
+    border-radius: 999px !important;
     font-size: 0.9rem !important;
-    transition: all 0.3s ease;
-}
-
-.btn-contact:hover {
-    background: white !important;
-    color: #000 !important;
-    transform: scale(1.05);
+    opacity: 1 !important;
 }
 
 #auth-nav-btn {
