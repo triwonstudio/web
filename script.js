@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', () => {
     // Custom Notification System (Form Specific)
     const formMessage = document.getElementById('form-message');
 
@@ -22,7 +23,7 @@
     let isAuthenticated = sessionStorage.getItem('triwon_auth') === 'true';
 
     if (isAuthenticated) {
-        authModal.classList.add('hidden');
+        if (authModal) authModal.classList.add('hidden');
     }
 
     const handleLogin = (method) => {
@@ -30,16 +31,18 @@
         // Simulate login success
         sessionStorage.setItem('triwon_auth', 'true');
         isAuthenticated = true;
-        authModal.classList.add('hidden');
+        if (authModal) authModal.classList.add('hidden');
         showFormMessage(`${method} ile giriş başarılı!`, 'success');
     };
 
-    skipBtn.addEventListener('click', () => {
-        authModal.classList.add('hidden');
-    });
+    if (skipBtn) {
+        skipBtn.addEventListener('click', () => {
+            if (authModal) authModal.classList.add('hidden');
+        });
+    }
 
-    googleBtn.addEventListener('click', () => handleLogin('Google'));
-    emailBtn.addEventListener('click', () => handleLogin('E-posta'));
+    if (googleBtn) googleBtn.addEventListener('click', () => handleLogin('Google'));
+    if (emailBtn) emailBtn.addEventListener('click', () => handleLogin('E-posta'));
 
     // Navbar scroll effect
     const navbar = document.querySelector('.navbar');
