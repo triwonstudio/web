@@ -17,11 +17,16 @@ if (typeof firebase !== 'undefined') {
 document.addEventListener('DOMContentLoaded', () => {
     // Custom Notification System
     const formMessage = document.getElementById('form-message');
-    const showFormMessage = (message, type = 'info') => {
-        if (!formMessage) return;
-        formMessage.textContent = message;
-        formMessage.className = `form-message visible ${type}`;
-        setTimeout(() => formMessage.classList.remove('visible'), 5000);
+    const authMessageArea = document.getElementById('auth-message');
+
+    const showFormMessage = (message, type = 'info', isAuth = false) => {
+        const target = isAuth ? authMessageArea : formMessage;
+        if (!target) return;
+        
+        target.textContent = message;
+        target.className = isAuth ? `auth-message visible` : `form-message visible ${type}`;
+        
+        setTimeout(() => target.classList.remove('visible'), 5000);
     };
 
     // Auth State Management
@@ -85,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const provider = new firebase.auth.GoogleAuthProvider();
             firebase.auth().signInWithPopup(provider)
-                .then(() => showFormMessage('Giriş Başarılı! ✨', 'success'))
-                .catch((error) => showFormMessage('Hata: ' + error.message, 'error'));
+                .then(() => showFormMessage('Giriş Başarılı! ✨', 'success', true))
+                .catch((error) => showFormMessage('Hata: ' + error.message, 'error', true));
         });
     }
 
@@ -95,8 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         emailBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            console.log("DEBUG: Email Login Clicked");
-            showFormMessage('E-posta girişi çok yakında aktif olacak! ✨', 'info');
+            showFormMessage('E-posta girişi çok yakında aktif olacak! ✨', 'info', true);
         });
     }
 

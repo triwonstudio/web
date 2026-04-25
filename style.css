@@ -623,9 +623,20 @@ footer {
     transform: translateY(-10px);
 }
 
-.form-message.visible {
+.form-message.visible, .auth-message.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+.auth-message {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #94a3b8; /* Modern minimal slate gri */
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+    min-height: 1.2rem;
 }
 
 .form-message.success {
