@@ -629,11 +629,15 @@ footer {
 }
 
 .form-message.success {
-    color: #10b981;
+    color: #9ca3af; /* Modern, minimal gri/yeşilimsi ton */
 }
 
 .form-message.error {
-    color: #ef4444;
+    color: #d1d5db; /* Modern, minimal mat kırık beyaz/kırmızımsı ton */
+}
+
+.form-message.info {
+    color: var(--text-secondary); /* Minimal gri/mavi ton */
 }
 
 /* Auth Modal Styles */
