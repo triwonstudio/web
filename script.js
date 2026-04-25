@@ -1,4 +1,46 @@
-document.addEventListener('DOMContentLoaded', () => {
+    // Custom Notification System (Form Specific)
+    const formMessage = document.getElementById('form-message');
+
+    const showFormMessage = (message, type = 'info') => {
+        if (!formMessage) return;
+        
+        formMessage.textContent = message;
+        formMessage.className = `form-message visible ${type}`;
+
+        // Clear after 5 seconds
+        setTimeout(() => {
+            formMessage.classList.remove('visible');
+        }, 5000);
+    };
+
+    // Auth State Management
+    const authModal = document.getElementById('auth-modal');
+    const skipBtn = document.getElementById('skip-login');
+    const googleBtn = document.getElementById('google-login');
+    const emailBtn = document.getElementById('email-login');
+    
+    let isAuthenticated = sessionStorage.getItem('triwon_auth') === 'true';
+
+    if (isAuthenticated) {
+        authModal.classList.add('hidden');
+    }
+
+    const handleLogin = (method) => {
+        console.log(`Logging in with ${method}...`);
+        // Simulate login success
+        sessionStorage.setItem('triwon_auth', 'true');
+        isAuthenticated = true;
+        authModal.classList.add('hidden');
+        showFormMessage(`${method} ile giriş başarılı!`, 'success');
+    };
+
+    skipBtn.addEventListener('click', () => {
+        authModal.classList.add('hidden');
+    });
+
+    googleBtn.addEventListener('click', () => handleLogin('Google'));
+    emailBtn.addEventListener('click', () => handleLogin('E-posta'));
+
     // Navbar scroll effect
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
@@ -250,6 +292,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault(); 
+
+            if (!isAuthenticated) {
+                showFormMessage('⚠️ Mesaj göndermek için önce giriş yapmalısınız!', 'error');
+                authModal.classList.remove('hidden');
+                return;
+            }
+
             const btn = form.querySelector('button');
             const originalText = btn.textContent;
             btn.textContent = 'Gönderiliyor...';
@@ -261,6 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(response => response.json())
             .then(data => {
+                showFormMessage('Mesajınız başarıyla gönderildi!', 'success');
                 btn.textContent = 'Gönderildi!';
                 btn.style.background = '#10b981'; 
                 btn.style.color = '#fff';
@@ -273,6 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 3000);
             })
             .catch(error => {
+                showFormMessage('Bir hata oluştu. Lütfen tekrar deneyin.', 'error');
                 btn.textContent = 'Hata Oluştu';
                 btn.style.background = '#ef4444'; 
                 btn.style.color = '#fff';

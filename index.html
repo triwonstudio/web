@@ -18,6 +18,32 @@
     </script>
 </head>
 <body>
+    <!-- Auth Modal Overlay -->
+    <div id="auth-modal" class="auth-overlay">
+        <div class="auth-card">
+            <div class="auth-header">
+                <img src="assets/TRIWON LOGO.png" alt="TRIWON" class="auth-logo">
+                <h2>TRIWON'a Hoş Geldiniz</h2>
+                <p>Müşteri çeken sistemleri keşfetmek için bir giriş yöntemi seçin.</p>
+            </div>
+            <div class="auth-options">
+                <button id="google-login" class="auth-btn google">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                    Google ile Devam Et
+                </button>
+                <button id="email-login" class="auth-btn email">
+                    <i class="fas fa-envelope"></i> E-posta ile Giriş Yap
+                </button>
+                <div class="auth-divider">
+                    <span>veya</span>
+                </div>
+                <button id="skip-login" class="auth-btn skip">
+                    Kayıt Olmadan Göz At
+                </button>
+            </div>
+            <p class="auth-footer">Giriş yaparak kullanım koşullarımızı kabul etmiş olursunuz.</p>
+        </div>
+    </div>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
@@ -189,9 +215,11 @@
                 <input type="text" name="name" placeholder="İsim Soyisim" required>
                 <input type="email" name="email" placeholder="E-posta Adresi" required>
                 <textarea name="message" rows="4" placeholder="Mesajınız" required></textarea>
-                <button type="submit" class="btn btn-primary">Gönder</button>
+                <div class="hero-cta">
+                    <button type="submit" class="btn btn-primary">Gönder</button>
+                </div>
+                <div id="form-message" class="form-message"></div>
             </form>
-        </div>
     </section>
 
     <!-- Footer -->
