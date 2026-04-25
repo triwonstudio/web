@@ -204,6 +204,7 @@ h1, h2, h3, h4 {
     list-style: none;
     display: flex;
     gap: 2rem;
+    align-items: center;
 }
 
 .nav-links a {
@@ -216,6 +217,33 @@ h1, h2, h3, h4 {
 
 .nav-links a:hover {
     color: var(--text-primary);
+}
+
+.btn-contact {
+    border: 1.5px solid white !important;
+    background: transparent !important;
+    color: white !important;
+    padding: 0.6rem 1.4rem !important;
+    font-size: 0.9rem !important;
+    transition: all 0.3s ease;
+}
+
+.btn-contact:hover {
+    background: white !important;
+    color: #000 !important;
+    transform: scale(1.05);
+}
+
+#auth-nav-btn {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
+    opacity: 0.8;
+}
+
+#auth-nav-btn:hover {
+    color: white;
+    opacity: 1;
 }
 
 /* Mobile Menu Toggle */
