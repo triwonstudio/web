@@ -13,10 +13,13 @@
     <link rel="stylesheet" href="style.css">
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <!-- OGL Library for Aurora Effect -->
     <script type="module">
-        import { Renderer, Program, Mesh, Triangle } from 'https://cdn.jsdelivr.net/npm/ogl@0.0.32/dist/ogl.mjs';
-        window.OGL = { Renderer, Program, Mesh, Triangle };
+        import { Renderer, Program, Mesh, Plane } from 'https://cdn.jsdelivr.net/npm/ogl@0.0.32/dist/ogl.mjs';
+        window.OGL = { Renderer, Program, Mesh, Plane };
     </script>
 </head>
 <body>
@@ -55,9 +58,11 @@
             <ul class="nav-links">
                 <li><a href="#home">Ana Sayfa</a></li>
                 <li><a href="#about">Hakkımızda</a></li>
-                <li><a href="#services">Hizmetler</a></li>
-                <li><a href="#projects">Projeler</a></li>
-                <li><a href="#contact">İletişim</a></li>
+                <ul class="nav-links">
+                    <li><a href="#projects">Projeler</a></li>
+                    <li><a href="#contact" class="btn btn-primary">İletişim</a></li>
+                    <li id="logout-item" class="hidden"><a href="#" id="logout-btn" style="color: var(--text-color); opacity: 0.7; font-size: 0.9rem; margin-left: 1rem;">Çıkış Yap</a></li>
+                </ul>
             </ul>
             <div class="menu-toggle" id="mobile-menu">
                 <span class="bar"></span>
@@ -216,9 +221,9 @@
                 <input type="hidden" name="_template" value="table">
                 <input type="hidden" name="_subject" value="TRIWON | Yeni Proje Talebi!">
                 <input type="hidden" name="_captcha" value="false">
-                <input type="text" name="name" placeholder="İsim Soyisim" required>
-                <input type="email" name="email" placeholder="E-posta Adresi" required>
-                <textarea name="mesaj" rows="4" placeholder="Mesajınız" required></textarea>
+                <input type="text" id="form-name" name="name" placeholder="İsim Soyisim" required>
+                <input type="email" id="form-email" name="email" placeholder="E-posta Adresi" required>
+                <textarea id="form-message-area" name="mesaj" rows="4" placeholder="Mesajınız" required></textarea>
                 <div class="hero-cta">
                     <button type="submit" class="btn btn-primary">Gönder</button>
                 </div>
