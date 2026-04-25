@@ -136,6 +136,38 @@ h1, h2, h3, h4 {
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.auth-card {
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem 2.5rem;
+    border-radius: 32px;
+    width: 90%;
+    max-width: 440px;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: modalPop 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-logo-container {
+    margin-bottom: 2rem;
+}
+
+.auth-logo {
+    max-width: 220px;
+    height: auto;
+    filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.3));
+}
+
+.auth-card h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .navbar.scrolled {
     top: 1rem;
     height: 56px;
