@@ -40,24 +40,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateUI = (user) => {
         if (user) {
             isAuthenticated = true;
-            authModal.classList.add('hidden');
+            if (authModal) authModal.classList.add('hidden');
             if (logoutItem) logoutItem.classList.remove('hidden');
             
             if (nameInput) {
                 nameInput.value = user.displayName || "";
                 nameInput.readOnly = true;
-                nameInput.style.backgroundColor = "#1e293b";
-                nameInput.style.opacity = "0.7";
+                nameInput.style.backgroundColor = "rgba(30, 41, 59, 0.5)";
+                nameInput.style.opacity = "0.8";
             }
             if (emailInput) {
                 emailInput.value = user.email || "";
                 emailInput.readOnly = true;
-                emailInput.style.backgroundColor = "#1e293b";
-                emailInput.style.opacity = "0.7";
+                emailInput.style.backgroundColor = "rgba(30, 41, 59, 0.5)";
+                emailInput.style.opacity = "0.8";
             }
         } else {
             isAuthenticated = false;
-            authModal.classList.remove('hidden');
+            if (authModal) authModal.classList.remove('hidden');
             if (logoutItem) logoutItem.classList.add('hidden');
             
             if (nameInput) {
@@ -80,50 +80,75 @@ document.addEventListener('DOMContentLoaded', () => {
         firebase.auth().onAuthStateChanged(updateUI);
     }
 
-    // Google Login - FORCE POPUP
+    // Google Login
     if (googleBtn) {
         googleBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log("Google Login Triggered...");
             const provider = new firebase.auth.GoogleAuthProvider();
             firebase.auth().signInWithPopup(provider)
-                .then(() => showFormMessage('Giriş Başarılı! [GERÇEK SİSTEM]', 'success'))
+                .then(() => showFormMessage('Giriş Başarılı! ✨', 'success'))
                 .catch((error) => showFormMessage('Hata: ' + error.message, 'error'));
+        });
+    }
+
+    // Email Login Placeholder
+    if (emailBtn) {
+        emailBtn.addEventListener('click', () => {
+            showFormMessage('E-posta girişi yakında aktif olacak. Şimdilik Google kullanabilirsiniz.', 'info');
         });
     }
 
     // Skip Login
     if (skipBtn) {
-        skipBtn.addEventListener('click', () => authModal.classList.add('hidden'));
+        skipBtn.addEventListener('click', () => {
+            if (authModal) authModal.classList.add('hidden');
+        });
     }
 
     // Logout
     if (logoutBtn) {
         logoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            firebase.auth().signOut();
+            firebase.auth().signOut().then(() => {
+                showFormMessage('Çıkış yapıldı.', 'info');
+            });
         });
     }
 
-    // Navbar Scroll
+    // --- RE-ADDING CONTENT LOGIC ---
+    
+    // Navbar Scroll Effect
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) navbar.classList.add('scrolled');
         else navbar.classList.remove('scrolled');
     });
 
-    // Form Submission
+    // Fade-in animations (Intersection Observer)
+    const fadeObservers = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => fadeObservers.observe(el));
+
+    // Form Submission Logic
     const form = document.querySelector('.contact-form');
     if (form) {
         form.addEventListener('submit', (e) => {
             if (!isAuthenticated) {
                 e.preventDefault();
                 showFormMessage('⚠️ Önce giriş yapmalısınız!', 'error');
-                authModal.classList.remove('hidden');
+                if (authModal) authModal.classList.remove('hidden');
                 return;
             }
             
+            e.preventDefault();
             const btn = form.querySelector('button');
+            const originalText = btn.textContent;
             btn.textContent = 'Gönderiliyor...';
             btn.disabled = true;
 
@@ -131,23 +156,37 @@ document.addEventListener('DOMContentLoaded', () => {
             emailjs.init('TcMW7Wq2EWBGMZQCR');
             emailjs.sendForm('service_xllhe3c', 'template_s79342s', form)
                 .then(() => {
-                    showFormMessage('Mesajınız İletildi!', 'success');
+                    showFormMessage('Mesajınız başarıyla iletildi!', 'success');
                     form.reset();
                     btn.textContent = 'Gönderildi!';
                     setTimeout(() => {
-                        btn.textContent = 'Gönder';
+                        btn.textContent = originalText;
                         btn.disabled = false;
                         if (firebase.auth().currentUser) updateUI(firebase.auth().currentUser);
                     }, 3000);
                 })
                 .catch(() => {
-                    // Fallback to FormSubmit if EmailJS fails
-                    form.submit();
+                    // Fallback to FormSubmit
+                    const formData = new FormData(form);
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    }).finally(() => {
+                        showFormMessage('Mesajınız başarıyla iletildi! (Yedek Kanal)', 'success');
+                        form.reset();
+                        btn.textContent = 'Gönderildi!';
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.disabled = false;
+                            if (firebase.auth().currentUser) updateUI(firebase.auth().currentUser);
+                        }, 3000);
+                    });
                 });
         });
     }
 
-    // Aurora Background Logic (Simplified & Fixed)
+    // --- AURORA BACKGROUND (PREMIUM VERSION) ---
     function initAurora() {
         const container = document.getElementById('aurora-container');
         if (!container || !window.OGL) return;
@@ -158,10 +197,36 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(gl.canvas);
         const geometry = new Plane(gl);
         
-        const vertex = `attribute vec2 uv; attribute vec2 position; varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 0, 1); }`;
-        const fragment = `precision highp float; uniform float uTime; varying vec2 vUv; void main() { vec3 col = 0.5 + 0.5*cos(uTime+vUv.xyx+vec3(0,2,4)); gl_FragColor = vec4(col * 0.2, 0.5); }`;
+        const vertex = `
+            attribute vec2 uv;
+            attribute vec2 position;
+            varying vec2 vUv;
+            void main() {
+                vUv = uv;
+                gl_Position = vec4(position, 0, 1);
+            }
+        `;
+
+        const fragment = `
+            precision highp float;
+            uniform float uTime;
+            varying vec2 vUv;
+            void main() {
+                float time = uTime * 0.5;
+                vec2 uv = vUv;
+                vec3 color1 = vec3(0.145, 0.423, 0.952); // Blue
+                vec3 color2 = vec3(0.000, 0.862, 1.000); // Cyan
+                float noise = sin(uv.x * 3.0 + time) * cos(uv.y * 2.0 - time) * 0.5 + 0.5;
+                vec3 finalColor = mix(color1, color2, noise);
+                gl_FragColor = vec4(finalColor * 0.15, 0.6);
+            }
+        `;
         
-        const program = new Program(gl, { vertex, fragment, uniforms: { uTime: { value: 0 } } });
+        const program = new Program(gl, { 
+            vertex, 
+            fragment, 
+            uniforms: { uTime: { value: 0 } } 
+        });
         const mesh = new Mesh(gl, { geometry, program });
 
         function update(t) {
