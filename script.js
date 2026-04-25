@@ -28,8 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const authModal = document.getElementById('auth-modal');
     const googleBtn = document.getElementById('google-login-btn');
     const emailBtn = document.getElementById('email-login-btn');
-    const logoutBtn = document.getElementById('logout-btn');
-    const logoutItem = document.getElementById('logout-item');
+    const authNavBtn = document.getElementById('auth-nav-btn');
     const skipBtn = document.getElementById('skip-login-btn');
     
     const nameInput = document.getElementById('form-name');
@@ -41,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (user) {
             isAuthenticated = true;
             if (authModal) authModal.classList.add('hidden');
-            if (logoutItem) logoutItem.classList.remove('hidden');
+            if (authNavBtn) authNavBtn.textContent = "Çıkış Yap";
             
             if (nameInput) {
                 nameInput.value = user.displayName || "";
@@ -57,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             isAuthenticated = false;
-            if (authModal) authModal.classList.remove('hidden');
-            if (logoutItem) logoutItem.classList.add('hidden');
+            // Modal'ı sadece sayfa yüklendiğinde otomatik açması için burada zorlamıyoruz
+            if (authNavBtn) authNavBtn.textContent = "Giriş Yap";
             
             if (nameInput) {
                 nameInput.value = "";
@@ -105,13 +104,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Logout
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', (e) => {
+    // Auth Nav Button Click
+    if (authNavBtn) {
+        authNavBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            firebase.auth().signOut().then(() => {
-                showFormMessage('Çıkış yapıldı.', 'info');
-            });
+            if (isAuthenticated) {
+                firebase.auth().signOut().then(() => {
+                    showFormMessage('Çıkış yapıldı.', 'info');
+                });
+            } else {
+                if (authModal) authModal.classList.remove('hidden');
+            }
         });
     }
 
