@@ -92,8 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Email Login Placeholder
     if (emailBtn) {
-        emailBtn.addEventListener('click', () => {
-            showFormMessage('E-posta girişi yakında aktif olacak. Şimdilik Google kullanabilirsiniz.', 'info');
+        emailBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log("Email Login Clicked");
+            showFormMessage('E-posta girişi yakında aktif olacak. Şimdilik Google kullanabilirsiniz. ✨', 'info');
         });
     }
 
