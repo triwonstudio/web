@@ -21,6 +21,8 @@
         import { Renderer, Program, Mesh, Plane } from 'https://cdn.jsdelivr.net/npm/ogl@0.0.32/dist/ogl.mjs';
         window.OGL = { Renderer, Program, Mesh, Plane };
     </script>
+    <!-- GSAP for PillNav -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
     <!-- Auth Modal Overlay -->
@@ -56,12 +58,52 @@
             <a href="#" class="logo">
                 <img src="assets/TRIWON TEXT LOGO uzun.png" alt="TRIWON Logo" class="full-logo">
             </a>
-            <ul class="nav-links">
-                <li><a href="#home" class="active">Ana Sayfa</a></li>
-                <li><a href="#about">Hakkımızda</a></li>
-                <li><a href="#projects">Projeler</a></li>
-                <li><a href="#contact">İletişim</a></li>
-                <li id="auth-nav-item"><a href="#" id="auth-nav-btn">Giriş Yap</a></li>
+            <ul class="nav-links pill-list">
+                <li>
+                    <a href="#home" class="pill active">
+                        <span class="hover-circle" aria-hidden="true"></span>
+                        <span class="label-stack">
+                            <span class="pill-label">Ana Sayfa</span>
+                            <span class="pill-label-hover" aria-hidden="true">Ana Sayfa</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#about" class="pill">
+                        <span class="hover-circle" aria-hidden="true"></span>
+                        <span class="label-stack">
+                            <span class="pill-label">Hakkımızda</span>
+                            <span class="pill-label-hover" aria-hidden="true">Hakkımızda</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#projects" class="pill">
+                        <span class="hover-circle" aria-hidden="true"></span>
+                        <span class="label-stack">
+                            <span class="pill-label">Projeler</span>
+                            <span class="pill-label-hover" aria-hidden="true">Projeler</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#contact" class="pill">
+                        <span class="hover-circle" aria-hidden="true"></span>
+                        <span class="label-stack">
+                            <span class="pill-label">İletişim</span>
+                            <span class="pill-label-hover" aria-hidden="true">İletişim</span>
+                        </span>
+                    </a>
+                </li>
+                <li id="auth-nav-item">
+                    <a href="#" id="auth-nav-btn" class="pill">
+                        <span class="hover-circle" aria-hidden="true"></span>
+                        <span class="label-stack">
+                            <span class="pill-label">Giriş Yap</span>
+                            <span class="pill-label-hover" aria-hidden="true">Giriş Yap</span>
+                        </span>
+                    </a>
+                </li>
             </ul>
             <div class="menu-toggle" id="mobile-menu">
                 <span class="bar"></span>

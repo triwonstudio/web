@@ -207,37 +207,85 @@ h1, h2, h3, h4 {
     align-items: center;
 }
 
-.nav-links a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: color 0.3s ease;
+/* PillNav Styles */
+.pill-list {
+  --base: #ffffff; /* hover circle color */
+  --pill-bg: transparent; 
+  --hover-text: #000000; /* text color when hovered */
+  --pill-text: var(--text-secondary); 
 }
 
-.nav-links a:hover {
-    color: var(--text-primary);
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.4rem;
+  background: var(--pill-bg);
+  color: var(--pill-text);
+  text-decoration: none;
+  border-radius: 9999px;
+  box-sizing: border-box;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 1.5px solid transparent;
+  transition: border-color 0.3s ease, color 0.3s ease;
 }
 
-.nav-links a.active {
-    border: 1.5px solid white !important;
-    background: transparent !important;
+.pill .hover-circle {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  border-radius: 50%;
+  background: var(--base);
+  z-index: 1;
+  display: block;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.pill .label-stack {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1;
+  z-index: 2;
+  overflow: hidden;
+  height: 0.95rem; /* Match font-size */
+}
+
+.pill .pill-label {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  line-height: 1;
+  will-change: transform;
+}
+
+.pill .pill-label-hover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--hover-text);
+  z-index: 3;
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.pill.active {
+    border-color: white !important;
     color: white !important;
-    padding: 0.6rem 1.4rem !important;
-    border-radius: 999px !important;
-    font-size: 0.9rem !important;
-    opacity: 1 !important;
 }
 
 #auth-nav-btn {
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    margin-left: 0.5rem;
     opacity: 0.8;
 }
 
 #auth-nav-btn:hover {
-    color: white;
     opacity: 1;
 }
 
