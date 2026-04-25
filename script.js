@@ -26,11 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Auth State Management
     const authModal = document.getElementById('auth-modal');
-    const googleBtn = document.getElementById('google-login');
-    const emailBtn = document.getElementById('email-login');
+    const googleBtn = document.getElementById('google-login-btn');
+    const emailBtn = document.getElementById('email-login-btn');
     const logoutBtn = document.getElementById('logout-btn');
     const logoutItem = document.getElementById('logout-item');
-    const skipBtn = document.getElementById('skip-login');
+    const skipBtn = document.getElementById('skip-login-btn');
     
     const nameInput = document.getElementById('form-name');
     const emailInput = document.getElementById('form-email');
