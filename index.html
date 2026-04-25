@@ -210,7 +210,9 @@
             <h2 class="section-title">Bizimle Çalışın</h2>
             <p class="section-text">Yeni bir projeniz mi var? Birlikte harika şeyler yaratabiliriz.</p>
             <form action="https://formsubmit.co/triwon.studio@gmail.com" method="POST" class="contact-form">
-                <!-- Güvenlik ve yönlendirme için gizli alanlar eklenebilir -->
+                <!-- FormSubmit Configuration -->
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_subject" value="TRIWON | Yeni Proje Talebi!">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="text" name="name" placeholder="İsim Soyisim" required>
                 <input type="email" name="email" placeholder="E-posta Adresi" required>
