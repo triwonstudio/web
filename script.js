@@ -94,8 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (emailBtn) {
         emailBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log("Email Login Clicked");
-            showFormMessage('E-posta girişi yakında aktif olacak. Şimdilik Google kullanabilirsiniz. ✨', 'info');
+            e.stopPropagation();
+            console.log("DEBUG: Email Login Clicked");
+            showFormMessage('E-posta girişi çok yakında aktif olacak! ✨', 'info');
+            // Geçici test uyarısı
+            alert('E-posta girişi şu an geliştirme aşamasındadır. Lütfen şimdilik Google ile giriş yapın.');
         });
     }
 
